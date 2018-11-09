@@ -1,6 +1,6 @@
 //Business logic
 
-function Pizza(size,toppings){
+function Pizza(size, meat, cheese, toppings, sauce){
   this.size = size;
   this.meat = meat;
   this.cheese = cheese;
@@ -12,7 +12,6 @@ function Pizza(size,toppings){
 //Pizza size pricing
 Pizza.prototype.calculatePrice = function() {
 console.log('everything: ', {meat: this.meat, cheese: this.cheese, toppings: this.toppings, sauce: this.sauce});
-console.log('before: ', {cost: this.cost});
   if (this.size === "small") {
     this.cost = this.cost + 6;
   }
@@ -26,27 +25,34 @@ console.log('before: ', {cost: this.cost});
     this.cost = this.cost + 12;
   }
 
+  console.log('before: ', {cost: this.cost});
   /*console.log('after size: ', {cost: this.cost});*/
 //meats
 for (var i = 0; i < this.meat.length; i++){
+  //debugger;
   this.cost += 2;
 }
 console.log('after meat: ', {cost: this.cost});
 //Cheese
   for (var i = 0; i < this.cheese.length; i++){
-  this.cost += 1;
+    //debugger;
+    this.cost += 1;
   }
+
 console.log('after cheese: ', {cost: this.cost});
 //toppings
   for (var i = 0; i < this.toppings.length; i++){
-  this.cost += 1;
+    //debugger;
+    this.cost += 1;
   }
   /*console.log('after toppings: ', {cost: this.cost});*/
   //Sauce
   for (var i = 0; i < this.sauce.length; i++){
-  this.cost += 0.10;
+    //debugger;
+    this.cost += 0.10;
   }
-console.log('after sauce: ', {cost: this.cost});
+
+  console.log('after sauce: ', {cost: this.cost});
 
 };
 
@@ -76,26 +82,30 @@ $(document).ready(function(){
     //form cheese,meat,topping and suace inputs
     var size = $("input:radio[name='size']:checked").val();
 
-    var meat = [];
+    var meatUser = [];
     $.each($("input[name='meat']:checked"), function(){
-        meat.push($(this.cost).val());
+      meatUser.push($(this).val());
+      console.log("Meat type: " + $(this).val());
     });
-    var cheese = [];
+    console.log(meat);
+
+
+    var cheeseUser = [];
     $.each($("input[name='cheese']:checked"), function(){
-        cheese.push($(this.cost).val());
+        cheeseUser.push($(this.cost).val());
     });
-    var toppings = [];
+    var toppingsUser = [];
     $.each($("input[name='toppings']:checked"), function(){
-        toppings.push($(this.cost).val());
+        toppingsUser.push($(this.cost).val());
     });
-    var sauce = [];
+    var sauceUser = [];
     $.each($("input[name='sauce']:checked"), function(){
-        sauce.push($(this.cost).val());
+        sauceUser.push($(this.cost).val());
     });
-    var extraPizza = new Pizza(size,meat,cheese,toppings,sauce);
+    var extraPizza = new Pizza(size,meatUser,cheeseUser,toppingsUser,sauceUser);
     //calculate price
     extraPizza.calculatePrice();
-    $("#show-cost").append(extraPizza.cost);
+    $("#show-cost").text(extraPizza.cost);
     document.getElementById("pizza-form").reset();
 
     $("#final-cost").show();

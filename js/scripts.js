@@ -1,5 +1,5 @@
 //Business logic
-
+//Fixed parameter
 function Pizza(size, meat, cheese, toppings, sauce){
   this.size = size;
   this.meat = meat;
